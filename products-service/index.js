@@ -1,32 +1,33 @@
-require('dotenv').config();
+// index.js
+require('dotenv').config(); // Load environment variables
 const express = require('express');
 const mongoose = require('mongoose');
 const productRoutes = require('./routes/productRoutes');
 const cartRoutes = require('./routes/cartRoutes');
+const errorMiddleware = require('./middleware/auth'); // Error handling middleware
 const { connectRabbitMQ } = require('./services/rabbitmqService');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Middleware to parse JSON bodies
 app.use(express.json());
 
-// Log all environment variables for debugging
-console.log('Environment Variables:', process.env);
+const PORT = process.env.PORT || 3004;
 
-// Connect to MongoDB
+// Connect to MongoDB without deprecated options
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log('MongoDB connected'))
+    .then(() => console.log('MongoDB Connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 
 // Connect to RabbitMQ
 connectRabbitMQ();
 
-// Use product and cart routes
+// Define Routes
 app.use('/api/products', productRoutes);
-app.use('/api/cart', cartRoutes);
+app.use('/api/carts', cartRoutes);
 
-// Start the server
+// Error handling middleware
+app.use(errorMiddleware);
+
+// Start server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

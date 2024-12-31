@@ -1,41 +1,57 @@
-// auth-service/routes/authController.js
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
 
-// Register a new user
-const register = async (req, res) => {
-    const { username, password, role } = req.body;
+exports.register = async (req, res) => {
+    const { username, email, password, role } = req.body;
+
+    if (!['buyer', 'seller'].includes(role)) {
+        return res.status(400).json({ message: "Role must be 'buyer' or 'seller'" });
+    }
 
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new User({ username, password: hashedPassword, role });
-        await user.save();
+        const newUser = new User({ username, email, password, role });
+        await newUser.save();
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Error registering user', error: error.message });
     }
 };
 
-// Login a user
-const login = async (req, res) => {
-    const { username, password } = req.body;
+exports.login = async (req, res) => {
+    const { email, password } = req.body;
 
     try {
-        const user = await User.findOne({ username });
-
-        if (!user || !(await bcrypt.compare(password, user.password))) {
+        const user = await User.findOne({ email });
+        if (!user || !(await user.comparePassword(password))) {
+            // Log unsuccessful attempt
+            user.loginAttempts.push({ successful: false });
+            await user.save();
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token });
+        // Log successful attempt
+        user.loginAttempts.push({ successful: true });
+        await user.save();
+
+        // Generate JWT token
+        const token = jwt.sign(
+            { id: user._id, role: user.role },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
+
+        res.status(200).json({ message: 'Login successful', token });
     } catch (error) {
         res.status(500).json({ message: 'Error logging in', error: error.message });
     }
 };
 
-module.exports = {
-    register,
-    login,
+// Route to get all login attempts
+exports.getLoginAttempts = async (req, res) => {
+    try {
+        const users = await User.find({}, 'username email loginAttempts'); // Fetch only necessary fields
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching login attempts', error: error.message });
+    }
 };

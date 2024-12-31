@@ -1,17 +1,9 @@
 const mongoose = require('mongoose');
 
 const notificationSchema = new mongoose.Schema({
-    message: {
-        type: String,
-        required: true,
-    },
-    recipient: {
-        type: String,
-        required: true,
-        // You can add more validation for email format if needed
-    },
-}, { timestamps: true });
+    email: { type: String, required: true },
+    message: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now }
+});
 
-const Notification = mongoose.model('Notification', notificationSchema);
-
-module.exports = Notification;
+module.exports = mongoose.model('Notification', notificationSchema);

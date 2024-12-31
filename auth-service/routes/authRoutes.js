@@ -1,13 +1,11 @@
-// auth-service/routes/auth.js
 const express = require('express');
-const { register, login } = require('../controllers//authController');
+const { register, login, getLoginAttempts } = require('../controllers/authController');
+const verifyToken = require('../middleware/verifyToken');
 
 const router = express.Router();
 
-// Register route
 router.post('/register', register);
-
-// Login route
 router.post('/login', login);
+router.get('/logins', verifyToken, getLoginAttempts); // Protect this route
 
 module.exports = router;

@@ -1,25 +1,21 @@
-const amqp = require('amqplib');
+const amqp = require('amqplib/callback_api');
 
-let channel;
+function connectRabbitMQ() {
+    amqp.connect(process.env.RABBITMQ_URI, (error0, connection) => {
+        if (error0) {
+            throw error0;
+        }
+        connection.createChannel((error1, channel) => {
+            if (error1) {
+                throw error1;
+            }
+            const queue = 'productQueue';
 
-const connectRabbitMQ = async () => {
-    try {
-        const connection = await amqp.connect(process.env.RABBITMQ_URL);
-        channel = await connection.createChannel();
-        console.log('Connected to RabbitMQ');
-    } catch (error) {
-        console.error('Error connecting to RabbitMQ', error);
-    }
-};
+            channel.assertQueue(queue, { durable: false });
 
-const publishMessage = async (queue, message) => {
-    try {
-        await channel.assertQueue(queue, { durable: true });
-        channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)), { persistent: true });
-        console.log(`Message sent to ${queue}: ${JSON.stringify(message)}`);
-    } catch (error) {
-        console.error('Error publishing message', error);
-    }
-};
+            console.log("RabbitMQ connected and channel created");
+        });
+    });
+}
 
-module.exports = { connectRabbitMQ, publishMessage };
+module.exports = { connectRabbitMQ };

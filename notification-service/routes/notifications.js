@@ -1,9 +1,8 @@
 const express = require('express');
-const { createNotification } = require('../controllers/notificationController');
+const { sendNotification } = require('../controllers/notificationController');
 
 const router = express.Router();
 
-// Create Notification route
-router.post('/', createNotification);
+router.post('/', sendNotification);
 
 module.exports = router;
