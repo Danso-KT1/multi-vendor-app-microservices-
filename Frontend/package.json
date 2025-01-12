@@ -10,11 +10,13 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.0.2",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "serve": "^14.0.1"  // Add this line for the static server
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "serve": "serve -s build",  // New script to serve the built app
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
