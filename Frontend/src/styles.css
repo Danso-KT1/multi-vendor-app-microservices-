@@ -1,0 +1,251 @@
+/* Global Typography and Base Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  font-size: 26px; /* Uniform large font size */
+  line-height: 2.2; /* Spacing for better readability */
+  color: #333;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+/* Headings (Uniform Across All Pages) */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 4.5rem; /* Large for emphasis */
+}
+
+h2 {
+  font-size: 3.8rem;
+}
+
+h3 {
+  font-size: 3.2rem;
+}
+
+h4 {
+  font-size: 2.8rem;
+}
+
+h5 {
+  font-size: 2.4rem;
+}
+
+h6 {
+  font-size: 2rem;
+}
+
+/* Paragraphs */
+p {
+  font-size: 2rem; /* Larger paragraph text */
+  margin-bottom: 1.5rem;
+}
+
+/* Buttons (Uniformly Large Across the App) */
+.btn {
+  font-size: 2.2rem; /* Large buttons */
+  padding: 1.8rem 3rem; /* Bigger padding */
+  border-radius: 10px; /* Rounded corners for consistency */
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+/* Navbar (Consistent and Scaled) */
+.navbar {
+  padding: 2rem 3rem;
+  background-color: #343a40;
+}
+
+.navbar-brand {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+  font-size: 2.5rem;
+  margin-right: 2.5rem;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #007bff;
+}
+
+/* Search Bar (Homepage and Navbar) */
+.search-bar {
+  width: 100%;
+  max-width: 800px;
+  margin: 3rem auto;
+  display: flex;
+}
+
+.search-bar input {
+  font-size: 2rem;
+  padding: 1.5rem;
+  border: 2px solid #ccc;
+  border-radius: 8px 0 0 8px;
+  flex-grow: 1;
+}
+
+.search-bar button {
+  font-size: 2rem;
+  padding: 1.5rem 3rem;
+  border-radius: 0 8px 8px 0;
+  background-color: #007bff;
+  border: 2px solid #007bff;
+  color: white;
+}
+
+.search-bar button:hover {
+  background-color: #0056b3;
+}
+
+/* Inputs and Textareas */
+input, textarea {
+  font-size: 2rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+}
+
+input:focus, textarea:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.7);
+}
+
+/* Cards (Products, Dashboard, etc.) */
+.card {
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 3rem;
+  padding: 3rem;
+}
+
+.card-title {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 2.2rem;
+}
+
+/* Hero Image (Landing Page) */
+.hero-image {
+  height: 100vh;
+  background: url('https://t4.ftcdn.net/jpg/02/32/16/07/360_F_232160763_FuTBWDd981tvYEJFXpFZtolm8l4ct0Nz.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.8);
+}
+
+.hero-image h1 {
+  font-size: 5rem; /* Large hero title */
+}
+
+.hero-image p {
+  font-size: 2.5rem;
+}
+
+.hero-image .btn {
+  font-size: 2.5rem; /* Large hero button */
+  padding: 1.8rem 3.5rem;
+  margin-top: 3rem;
+}
+
+/* Cart Page */
+.cart-page {
+  max-width: 1400px;
+  margin: 4rem auto;
+  padding: 3rem;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.cart-title {
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin-bottom: 3rem;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 0;
+  border-bottom: 2px solid #ccc;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.cart-item .item-name {
+  font-size: 2.2rem;
+}
+
+.cart-item .item-price {
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
+.cart-checkout {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 3rem;
+}
+
+.cart-checkout button {
+  font-size: 2.5rem;
+  padding: 2rem 3.5rem;
+  background-color: #28a745;
+  color: white;
+  border-radius: 12px;
+}
+
+.cart-checkout button:hover {
+  background-color: #218838;
+}
